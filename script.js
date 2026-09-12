@@ -111,6 +111,7 @@
   function openBook() {
     if (opened) return;
     opened = true;
+    playThemeOnce();
     rustle();
     book.classList.add("is-open");
     window.setTimeout(() => {
@@ -172,28 +173,59 @@
     soundBtn.querySelector(".sound-label").textContent = on ? "ഓൺ" : "ശബ്ദം";
   }
 
+  function unlockAudio() {
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (audio.state === "suspended") audio.resume();
+    } catch {
+      /* ignore */
+    }
+  }
+
   function fadeInTheme() {
-    theme.volume = 0;
+    try {
+      theme.volume = 0;
+    } catch {
+      return;
+    }
     const step = () => {
       if (theme.paused) return;
-      theme.volume = Math.min(SOFT_VOLUME, theme.volume + 0.02);
-      if (theme.volume < SOFT_VOLUME) requestAnimationFrame(step);
+      try {
+        theme.volume = Math.min(SOFT_VOLUME, theme.volume + 0.02);
+        if (theme.volume < SOFT_VOLUME) requestAnimationFrame(step);
+      } catch {
+        /* iOS ignores volume */
+      }
     };
     requestAnimationFrame(step);
   }
 
-  async function playThemeOnce() {
+  function onThemePlaying() {
     if (themeStarted) return;
-    try {
-      theme.loop = false;
-      await theme.play();
-      themeStarted = true;
-      fadeInTheme();
-      markSound(true);
-    } catch {
-      /* browser blocked autoplay until a tap */
-    }
+    themeStarted = true;
+    soundOn = true;
+    fadeInTheme();
+    markSound(true);
   }
+
+  function playThemeOnce() {
+    if (themeStarted) return;
+    unlockAudio();
+    theme.playsInline = true;
+    theme.muted = false;
+    theme.loop = false;
+    const started = theme.play();
+    if (!started) {
+      onThemePlaying();
+      return;
+    }
+    started.then(onThemePlaying).catch(() => {
+      /* need a tap Safari/iOS actually counts, like opening the letter */
+    });
+  }
+
+  theme.addEventListener("playing", onThemePlaying);
+  waitThenPlay();
 
   function waitThenPlay() {
     const pageReady =
@@ -209,19 +241,13 @@
     Promise.all([pageReady, songReady]).then(playThemeOnce);
   }
 
-  waitThenPlay();
-  document.addEventListener(
-    "pointerdown",
-    (event) => {
-      if (event.target.closest(".sound-btn")) return;
-      playThemeOnce();
-    },
-    { once: true }
-  );
+  document.addEventListener("click", playThemeOnce);
+  document.addEventListener("touchend", playThemeOnce, { passive: true });
 
-  soundBtn.addEventListener("click", async () => {
-    if (!themeStarted) {
-      await playThemeOnce();
+  soundBtn.addEventListener("click", async (event) => {
+    event.stopPropagation();
+    if (!themeStarted || theme.paused) {
+      playThemeOnce();
       return;
     }
     theme.muted = !theme.muted;
