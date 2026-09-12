@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#2a1810" />
+    <title>വൈഷ്ണേ — ഒരു കുറിപ്പ്</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Manjari:wght@400;700&family=Noto+Sans+Malayalam:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="room">
+      <div class="lamp" aria-hidden="true"></div>
+      <button class="sound-btn" type="button" aria-pressed="false" aria-label="sound">
+        <span aria-hidden="true">♪</span>
+        <span class="sound-label">ശബ്ദം</span>
+      </button>
+
+      <div class="book" id="book">
+        <section class="cover">
+          <div class="cover-grain" aria-hidden="true"></div>
+          <div class="cover-spine" aria-hidden="true"></div>
+          <p class="cover-kicker">ഒരു കുറിപ്പ്</p>
+          <h1 class="cover-name">വൈഷ്ണേ</h1>
+          <p class="cover-from">അഖിൽ</p>
+          <button class="seal" id="openBtn" type="button">
+            <span class="seal-letter">വൈ</span>
+            <span class="seal-hint">തുറക്കൂ</span>
+          </button>
+        </section>
+
+        <div class="notebook" id="notebook">
+          <div class="bind" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="sheet" id="sheet">
+            <div class="margin" aria-hidden="true"></div>
+            <div class="rules" aria-hidden="true"></div>
+            <div class="flower" id="flower" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="64" height="64">
+                <g class="flower-petals">
+                  <ellipse cx="32" cy="18" rx="8" ry="14" />
+                  <ellipse cx="32" cy="18" rx="8" ry="14" transform="rotate(72 32 32)" />
+                  <ellipse cx="32" cy="18" rx="8" ry="14" transform="rotate(144 32 32)" />
+                  <ellipse cx="32" cy="18" rx="8" ry="14" transform="rotate(216 32 32)" />
+                  <ellipse cx="32" cy="18" rx="8" ry="14" transform="rotate(288 32 32)" />
+                </g>
+                <circle class="flower-center" cx="32" cy="32" r="6" />
+              </svg>
+            </div>
+
+            <article class="page" data-page="0">
+              <p class="page-no">1</p>
+              <p class="line" style="--d:0">വൈഷ്ണേ,</p>
+              <p class="line" style="--d:1">ഇന്നലെ വരാം എന്ന് പറഞ്ഞിട്ട്</p>
+              <p class="line" style="--d:2">വരാൻ പറ്റാത്തതിൽ സോറി.</p>
+              <p class="line" style="--d:3">ഞാൻ busy ആയിരുന്നു.</p>
+              <p class="line" style="--d:4">പക്ഷേ വരാം എന്ന് പറഞ്ഞിട്ട്</p>
+              <p class="line sorry" style="--d:5">വരാതിരുന്നത് എന്റെ mistake ആണ്.</p>
+              <p class="hint">വശത്തേക്ക് വലിക്കൂ</p>
+            </article>
+
+            <article class="page" data-page="1" hidden>
+              <p class="page-no">2</p>
+              <p class="line" style="--d:0">നിനക്ക് അതുകൊണ്ട് വിഷമം വന്നതും</p>
+              <p class="line" style="--d:1">ദേഷ്യം വന്നതും എനിക്ക് മനസ്സിലാകും.</p>
+              <p class="line" style="--d:2">ഞാൻ മനഃപൂർവം വരാതിരുന്നതല്ല.</p>
+              <p class="line" style="--d:3">പക്ഷേ അതുകൊണ്ട് നിനക്ക് ഉണ്ടായ വിഷമം</p>
+              <p class="line sorry" style="--d:4">മാറുന്നില്ലെന്ന് എനിക്ക് അറിയാം.</p>
+            </article>
+
+            <article class="page" data-page="2" hidden>
+              <p class="page-no">3</p>
+              <p class="line" style="--d:0">ഇന്നലെ ഞാൻ വരുമെന്ന് പറഞ്ഞതുകൊണ്ട്</p>
+              <p class="line" style="--d:1">നീ എന്നെ expect ചെയ്തതായിരിക്കും.</p>
+              <p class="line" style="--d:2">അത് പോലെ പറഞ്ഞിട്ട്</p>
+              <p class="line" style="--d:3">ഞാൻ വരാതിരുന്നത് ശരിയായില്ല.</p>
+              <p class="line sorry" style="--d:4">Sorry വൈഷ്ണേ.</p>
+            </article>
+
+            <article class="page page-ask" data-page="3" hidden>
+              <p class="page-no">4</p>
+              <p class="line" style="--d:0">ഇനി എന്ത് പറഞ്ഞാലും</p>
+              <p class="line" style="--d:1">ഇന്നലെ നടന്നത് മാറ്റാൻ പറ്റില്ല.</p>
+              <p class="line" style="--d:2">പക്ഷേ ഞാൻ നിന്നെ വിഷമിപ്പിച്ചതിൽ</p>
+              <p class="line" style="--d:3">എനിക്ക് ശരിക്കും സങ്കടമുണ്ട്.</p>
+              <p class="line sorry" style="--d:4">എന്നോട് ക്ഷമിക്കണം. ❤️</p>
+              <p class="line" style="--d:5">നിനക്ക് ദേഷ്യം മാറുമ്പോൾ</p>
+              <p class="line" style="--d:6">എന്നോട് സംസാരിക്കണേ.</p>
+              <div class="choices" style="--d:7">
+                <button class="choice yes" type="button" data-choice="yes">മിണ്ടാം</button>
+                <button class="choice later" type="button" data-choice="later">ഇപ്പോഴും ദേഷ്യമാണ്</button>
+              </div>
+            </article>
+
+            <article class="page page-end" data-page="4" hidden>
+              <p class="page-no">*</p>
+              <div class="ending" id="ending"></div>
+            </article>
+          </div>
+
+          <nav class="nav" aria-label="pages">
+            <button class="nav-btn" id="prevBtn" type="button" disabled>മുമ്പ്</button>
+            <div class="dots" id="dots"></div>
+            <button class="nav-btn" id="nextBtn" type="button">അടുത്തത്</button>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="petals" id="petals" aria-hidden="true"></div>
+    <audio id="theme" src="pesamale_O5QRH6Vx.mp3" preload="auto" playsinline></audio>
+    <script src="script.js"></script>
+  </body>
+</html>
